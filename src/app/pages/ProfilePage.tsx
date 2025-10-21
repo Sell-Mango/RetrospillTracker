@@ -25,6 +25,7 @@ export default function ProfilePage(){
         setError(err.message)
       } 
     }
+    fetchData();
   }, [])
   
   return (

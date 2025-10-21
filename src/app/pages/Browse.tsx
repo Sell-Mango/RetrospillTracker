@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react";
 
 export default function Browse() {
@@ -18,15 +20,25 @@ export default function Browse() {
           }
         });
         if (!response.ok) throw new Error("Error")
-        const result = await response.json()
+        const result: string = await response.json()
         setData(result)
         setLoading(false)
+        console.log(data)
       } catch (err) {
-        setError(err.message)
+        if (
+          typeof err === "object" &&
+          err &&
+          "message" in err &&
+          typeof err.message === "string"
+        )
+        console.log(err.message)
       } 
     }
     fetchData();
   }, [])
+
+  if (loading) return <p>Laster...</p>
+  if (error) return <p>Feil: {error}</p>
   
   return (
     <h1>Browse</h1>

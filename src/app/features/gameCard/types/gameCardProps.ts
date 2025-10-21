@@ -8,6 +8,7 @@ interface gameCardProps {
     title: string;
     imgUrl: string;
     altText: string;
+    slug: string;
 }
 
 export type {gameCardProps};

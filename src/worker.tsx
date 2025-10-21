@@ -14,6 +14,7 @@ import Login from "./app/pages/Login";
 import Layout from "@/app/shared/components/layout/Layout";
 import ProfilePage from "./app/pages/ProfilePage";
 import SignUp from "./app/pages/SignUp";
+import GamePage from "./app/features/gamePage/GamePage";
 
 export interface Env {
   DB: D1Database;
@@ -37,7 +38,7 @@ export default defineApp([
           route("/profilepage", ProfilePage),
           prefix("/games", [
               route("/", ()=>{return <h2>Games</h2>}),
-              route("/:id", ()=>{return <h2>Dynamic game</h2>})
+              route("/:slug", GamePage)
           ])
       ]),
   ]),

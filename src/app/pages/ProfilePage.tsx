@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 
 export default function ProfilePage(){
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const GET_URL = "https://api.igdb.com/v4/games";
   
   useEffect(() => {
@@ -20,7 +20,10 @@ export default function ProfilePage(){
         if (!response.ok) throw new Error("Error")
         const result = await response.json()
         setData(result)
-      }
+        setLoading(false)
+      } catch (err) {
+        setError(err.message)
+      } 
     }
   }, [])
   

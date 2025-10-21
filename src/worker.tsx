@@ -61,15 +61,6 @@ export default defineApp([
       );
     }),
 
-    route("/frontpage", HomePage),
-    route("/search", Search),
-    route("/browse", Browse),
-    route("/forum", Forum),
-    route("/login", Login),
-    route("/signup", SignUp),
-    route("/profilepage", ProfilePage),
-
-
     route("/home", [
       ({ ctx }) => {
         if (!ctx.user) {
@@ -81,5 +72,12 @@ export default defineApp([
       },
       Home,
     ]),
+    route("/frontpage", HomePage),
+    route("/search", Search),
+    route("/browse", Browse),
+    route("/forum", Forum),
+    route("/login", Login),
+    route("/signup", SignUp),
+    route("/profilepage", ProfilePage),
   ]),
 ]);

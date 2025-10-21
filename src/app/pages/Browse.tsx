@@ -1,4 +1,33 @@
+import { useEffect, useState } from "react";
+
 export default function Browse() {
+  const [data, setData] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const GET_URL = "https://api.igdb.com/v4/games";
+  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(GET_URL, {
+          method: "POST",
+          headers: {
+            "Client-ID": "",
+            "Authorization": "",
+            "Accept": "application/json"
+          }
+        });
+        if (!response.ok) throw new Error("Error")
+        const result = await response.json()
+        setData(result)
+        setLoading(false)
+      } catch (err) {
+        setError(err.message)
+      } 
+    }
+    fetchData();
+  }, [])
+  
   return (
     <h1>Browse</h1>
   )

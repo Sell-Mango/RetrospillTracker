@@ -5,7 +5,7 @@ import { getGameBySlug } from "@/app/shared/services/gameServiceClient";
 import type { Game } from "@/app/shared/types/game";
 import Hero from "@/app/shared/components/Hero";
 
-/** Route props from worker: route("/:slug", ({ params }) => <GameArticle params={params} />) */
+/** Route props fra worker */
 type GameArticleProps = {
   params: { slug: string };
 };

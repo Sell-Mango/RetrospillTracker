@@ -6,5 +6,9 @@ export interface Game {
   developer?: string;
   platform?: string;
   apiKey?: string;
-  slug: string;
+  slug?: string;
+  rating?: number | null;
+  releaseDate?: string | null;
+  genres?: string[];
+  platforms?: string[];
 }

@@ -1,9 +1,7 @@
+// Hero.tsx
 import React from "react";
 
-type ButtonLink = {
-  label: string;
-  href: string;
-};
+type ButtonLink = { label: string; href: string };
 
 export interface HeroProps {
   title: string;
@@ -12,6 +10,8 @@ export interface HeroProps {
   imageAlt?: string;
   primary?: ButtonLink;
   secondary?: ButtonLink;
+  /** Bruk kompakt høyde  */
+  compact?: boolean;
 }
 
 export default function Hero({
@@ -21,15 +21,15 @@ export default function Hero({
   imageAlt,
   primary,
   secondary,
+  compact = false,
 }: Readonly<HeroProps>) {
   return (
-    // Hero med bilde som bakgrunn og tekst oppå
     <section className="relative isolate overflow-hidden rounded-3xl border border-white/10 bg-black/40">
       {imageUrl && (
         <img
           src={imageUrl}
           alt={imageAlt ?? ""}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           loading="eager"
           decoding="async"
         />
@@ -41,9 +41,16 @@ export default function Hero({
         aria-hidden="true"
       />
 
-      {/* Tekst og knapper */}
-      <div className="relative z-10 p-8 md:p-10 flex flex-col justify-center min-h-[360px] sm:min-h-[420px]">
-        <h1 className="text-glow-pink text-3xl font-extrabold tracking-tight sm:text-4xl">
+      {/* Tekstblokk — høyde styres av compact */}
+      <div
+        className={[
+          "relative z-10 flex flex-col justify-center",
+          compact
+            ? "p-6 md:p-8 min-h-[220px] sm:min-h-[280px]"
+            : "p-8 md:p-10 min-h-[360px] sm:min-h-[420px]",
+        ].join(" ")}
+      >
+        <h1 className="text-glow-pink text-4xl sm:text-5xl font-extrabold tracking-tight">
           {title}
         </h1>
 
@@ -68,7 +75,6 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Litt kulere kanter */}
       <div
         className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/10 via-transparent to-black/40"
         aria-hidden="true"

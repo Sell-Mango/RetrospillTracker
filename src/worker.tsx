@@ -1,5 +1,5 @@
 import { defineApp } from "rwsdk/worker";
-import {layout, prefix, render, route} from "rwsdk/router";
+import { layout, prefix, render, route } from "rwsdk/router";
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
 
@@ -16,7 +16,8 @@ import Login from "./app/pages/Login";
 import Layout from "@/app/shared/components/layout/Layout";
 import ProfilePage from "./app/pages/ProfilePage";
 import SignUp from "./app/pages/SignUp";
-import {getPopularGames} from "@/app/shared/services/gameService";
+import { getPopularGames } from "@/app/shared/services/gameService";
+import GameArticle from "@/app/pages/GameArticle";
 
 export interface Env {
   DB: D1Database;
@@ -34,32 +35,43 @@ export default defineApp([
     route("/seed", async () => {
       try {
         const seedResponse = await runCustomSeed(env.DB);
-       return new Response(JSON.stringify(seedResponse, null, 2), {
-      status: 200,
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-        "cache-control": "no-store", // ikke cache svar i dev
-      },
-    });
-      } catch(error: any) {
-            const msg = error?.message || String(error);
-    const cause = (error as any)?.cause?.message;
-    console.error("Seed error:", msg, cause);
-    return Response.json({ ok: false, error: msg, cause }, { status: 500 });
+        return new Response(JSON.stringify(seedResponse, null, 2), {
+          status: 200,
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+            "cache-control": "no-store", // ikke cache svar i dev
+          },
+        });
+      } catch (error: any) {
+        const msg = error?.message || String(error);
+        const cause = (error as any)?.cause?.message;
+        console.error("Seed error:", msg, cause);
+        return Response.json({ ok: false, error: msg, cause }, { status: 500 });
       }
     }),
-      layout(Layout, [
-          route("/", HomePage),
-          route("/search", Search),
-          route("/browse", Browse),
-          route("/forum", Forum),
-          route("/login", Login),
-          route("/signup", SignUp),
-          route("/profilepage", ProfilePage),
-          prefix("/games", [
-              route("/", ()=>{return <h2>Games</h2>}),
-              route("/:id", ()=>{return <h2>Dynamic game</h2>})
-          ])
+    layout(Layout, [
+      route("/", HomePage),
+      route("/search", Search),
+      route("/browse", Browse),
+      route("/forum", Forum),
+      route("/login", Login),
+      route("/signup", SignUp),
+      route("/profilepage", ProfilePage),
+      prefix("/games", [
+        // Forside for /games – kan vise liste eller placeholder
+        route("/", () => {
+          return (
+            <h2 className="text-pink-400 p-6">
+              Games overview (kommer senere)
+            </h2>
+          );
+        }),
+
+        // Dynamisk spillartikkel basert på slug
+        route("/:slug", ({ params }) => {
+          return <GameArticle params={params} />;
+        }),
       ]),
+    ]),
   ]),
 ]);

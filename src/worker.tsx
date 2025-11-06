@@ -5,10 +5,11 @@ import { Home } from "@/app/pages/Home";
 
 import { runCustomSeed } from "./db/runCustomSeed";
 import HomePage from "./app/pages/HomePage";
-import { User, users } from "./db/schema/user-schema";
+import { User, users } from "@/db/schema";
 import { setCommonHeaders } from "./app/headers";
 import { env } from "cloudflare:workers";
 import { drizzle } from "drizzle-orm/d1";
+
 import Search from "./app/pages/Search";
 import Browse from "./app/pages/Browse";
 import Forum from "./app/pages/Forum";
@@ -16,9 +17,14 @@ import Login from "./app/pages/Login";
 import Layout from "@/app/shared/components/layout/Layout";
 import ProfilePage from "./app/pages/ProfilePage";
 import SignUp from "./app/pages/SignUp";
-import { getPopularGames } from "@/app/shared/services/gameService";
-import GameArticle from "@/app/pages/GameArticle";
 
+import {
+  getAllGames,
+  getPopularGames,
+  getSearchGames,
+} from "@/app/shared/services/gameService";
+
+// ----------- Types -----------
 export interface Env {
   DB: D1Database;
 }
@@ -28,10 +34,18 @@ export type AppContext = {
   authUrl: string;
 };
 
+// ----------- Main App -----------
 export default defineApp([
   setCommonHeaders(),
+
+  // --- API Routes ---
   route("/api/v1/getPopularGames", getPopularGames),
+  route("/api/v1/getAllGames", getAllGames),
+  route("/api/v1/getSearchGames", getSearchGames),
+
+  // --- Rendered Pages ---
   render(Document, [
+    // Seeder
     route("/seed", async () => {
       try {
         const seedResponse = await runCustomSeed(env.DB);
@@ -49,6 +63,8 @@ export default defineApp([
         return Response.json({ ok: false, error: msg, cause }, { status: 500 });
       }
     }),
+
+    // Page Layout
     layout(Layout, [
       route("/", HomePage),
       route("/search", Search),
@@ -57,20 +73,10 @@ export default defineApp([
       route("/login", Login),
       route("/signup", SignUp),
       route("/profilepage", ProfilePage),
-      prefix("/games", [
-        // Forside for /games – kan vise liste eller placeholder
-        route("/", () => {
-          return (
-            <h2 className="text-pink-400 p-6">
-              Games overview (kommer senere)
-            </h2>
-          );
-        }),
 
-        // Dynamisk spillartikkel basert på slug
-        route("/:slug", ({ params }) => {
-          return <GameArticle params={params} />;
-        }),
+      prefix("/games", [
+        route("/", () => <h2>Games</h2>),
+        route("/:id", () => <h2>Dynamic game</h2>),
       ]),
     ]),
   ]),

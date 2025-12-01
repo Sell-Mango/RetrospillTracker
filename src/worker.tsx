@@ -24,7 +24,7 @@ import {
     getPopularGames, getReleaseDates, 
     getSearchGames, getGames
 } from "@features/api/game/gameService";
-import { fetchCollectionsByUser } from "@/app/shared/repository/userCollectionsRepository";
+import { fetchCollectionsByUser } from "@/app/shared/repository/collectionRepository";
 import {userRoutes} from "@/app/shared/controllers/userRoutes";
 import {createUserController} from "@/app/shared/controllers/userController";
 

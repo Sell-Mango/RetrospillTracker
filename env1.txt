@@ -1,0 +1,11 @@
+CLOUDFLARE_ACCOUNT_ID=150749f4b9d217d32f4831e014cf91d3
+CLOUDFLARE_DATABASE_ID=3fe3b470-4c94-4775-9039-e959b034c053
+CLOUDFLARE_D1_TOKEN=cipJaHSwo8e5eNWmhnEaKILaDCRCbZx6pN0DaMGq
+
+TWITCH_API_ID=lithqoyf6jiwj4ocgqy6ui675ypt23
+TWITCH_API_SECRET=0gd7a0hzjp22b5n4a8evaovjqivmsb
+OAUTH_TOKEN=sg6o62tztqdfemccilq7uyn17rigc8
+
+USE_REMOTE_DB=false
+D1_PROXY_URL=https://retrospilltracker-db-proxy.retrotracker.workers.dev
+D1_PROXY_API_KEY=IdnfxidOl8GHpiR6+c3OgIlFHzx24tu8PuoTkkOT9E4=

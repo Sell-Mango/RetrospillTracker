@@ -1,6 +1,6 @@
 import { dbCollections, dbCollectionsEntries, dbGames, dbGamesToPlatforms, dbPlatforms, dbStatuses, dbUsers } from "@/app/data/dbTestData";
 import { API_ENDPOINT, API_URL, BASE_URL } from "@/app/shared/config/apiPaths";
-import { User } from "@/app/shared/schemas/usersSchema";
+import { User } from "@/app/shared/schemas/userSchema";
 import { ProfileData, UserGame } from "@/app/features/profilePage/types/user";
 import { useEffect, useState } from "react";
 

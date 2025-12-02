@@ -1,4 +1,4 @@
-import {User} from "@/app/shared/schemas/usersSchema";
+import {User} from "@/app/shared/schemas/userSchema";
 import {UserRepository} from "@/app/shared/repository/userRepository";
 import {Errors, Result} from "@/app/shared/lib/response";
 

@@ -3,6 +3,15 @@ import { sqliteTable, text, integer, index, uniqueIndex } from "drizzle-orm/sqli
 import { gamesToDevelopers } from "./gamesToDeveloper-schema"
 import { gamesToGenres } from "./gamesToGenres-schema"
 
+/*export const games = sqliteTable("games", {
+        gameId: text("game_id").primaryKey(),
+        title: text("title").notNull(),
+    },
+    (table) => [
+        index("games_title_idx").on(table.title),
+        uniqueIndex("games_slug_x").on(table.gameId)
+    ]
+); */
 
 export const games = sqliteTable("games", {
     gameId: integer("game_id").primaryKey(),
@@ -23,3 +32,5 @@ export const gamesRelations = relations(games, ({ many }) => ({
     gamesToDeveloper: many(gamesToDevelopers),
     gamesToGenre: many(gamesToGenres),
 }));
+
+export type Game = typeof games.$inferSelect;

@@ -1,12 +1,16 @@
 import { z } from "zod";
 import {createSelectSchema} from "drizzle-zod";
 import { collections } from "@/db/schema";
-import {CollectionEntrySchema, CollectionEntryWithStatusSchema} from "@/app/shared/schemas/collectionEntrySchema";
-import { TagsToCollectionWithTagSchema } from "@/app/shared/schemas/tagSchemas";
+import {
+    CollectionEntrySchema,
+    CollectionEntryWithStatusSchema,
+    PlayingStatusSchema
+} from "@/app/shared/schemas/collectionEntrySchema";
+import { TagsToCollectionWithTagSchema } from "@/app/shared/schemas/tagSchema";
+import {GameWithIGDBSchema} from "@/app/shared/schemas/gameSchema";
 
 
 export const CollectionSchema = createSelectSchema(collections);
-
 
 export const CollectionWithRelationsSchema = CollectionEntrySchema.extend({
     collectionEntries: z.array(CollectionEntryWithStatusSchema),

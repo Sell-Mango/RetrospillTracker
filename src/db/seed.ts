@@ -1,5 +1,5 @@
 // src/db/seed.ts
-
+/*
 import { defineScript } from "rwsdk/worker";
 import { drizzle } from "drizzle-orm/d1";
 import { users } from "./schema";
@@ -29,3 +29,4 @@ export default defineScript(async ({ env }) => {
     });
   }
 });
+*/

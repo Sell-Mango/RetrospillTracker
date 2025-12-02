@@ -15,6 +15,19 @@ export const collectionEntries = sqliteTable("collection_entries", {
     finishedAt: text("finished_at")
 });
 
+export const collectionEntriesMin = sqliteTable("collection_entries", {
+    entryId: integer("entry_id").primaryKey(),
+    gameId: text("game_id").notNull().references(() => games.gameId, { onDelete: "cascade" }),
+    collectionId: integer("collection_id").notNull().references(() => collections.collectionId, {onDelete: "cascade"}),
+    statusId: integer("status").references(() => playingStatus.statusId),
+    score: integer("score"),
+    priority: integer("priority"),
+    playTime: integer("play_time"),
+    finishedAt: text("finished_at")
+});
+
+export type CollectionEntriesMin = typeof collectionEntriesMin.$inferSelect;
+
 export const collectionEntriesRelations = relations(collectionEntries, ({ one }) => ({
     collection: one(collections, {
        fields: [collectionEntries.collectionId],
@@ -29,6 +42,3 @@ export const collectionEntriesRelations = relations(collectionEntries, ({ one })
         references: [playingStatus.statusId]
     })
 }))
-
-
-export type CollectionEntry = typeof collectionEntries.$inferSelect;

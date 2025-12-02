@@ -1,6 +1,7 @@
 import {z} from "zod";
 import {createSelectSchema} from "drizzle-zod";
 import {collectionEntries, playingStatus} from "@/db/schema";
+import {GameSchema} from "@/app/shared/schemas/gameSchema";
 
 
 export const CollectionEntrySchema = createSelectSchema(collectionEntries);
@@ -12,7 +13,7 @@ export const CollectionEntryWithStatusSchema = CollectionEntrySchema.extend({
 }) ;
 
 export const CollectionEntryWithGameSchema = CollectionEntrySchema.extend({
-    status: PlayingStatusSchema.nullable()
+    status: GameSchema.nullable()
 });
 
 

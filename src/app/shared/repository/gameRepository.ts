@@ -5,16 +5,16 @@ import {Game, GameSchema} from "@/app/shared/schemas/gameSchema";
 import result from "*?url";
 
 export interface GameRepositoryProps {
-    findById(apiKey: string): Promise<Game | null>;
-    findByIds(apiKey: string[]): Promise<Game[]>;
+    findById(gameId: string): Promise<Game | null>;
+    findByIds(gameId: string[]): Promise<Game[]>;
 }
 
-export function createGameRepository(): GameRepositoryProps {
+/*export function createGameRepository(): GameRepositoryProps {
     return {
-        async findById(apiKey: string): Promise<Game | null> {
+        async findById(gameId: string): Promise<Game | null> {
             const db = await getDatabase();
-            const results = await db.query.games.findFirst({
-                where: eq(games.apiKey, apiKey)
+            const results = await db.query.gamesAlt.findFirst({
+                where: eq(games.gameId, gameId)
             });
 
             if (!result) {
@@ -23,13 +23,13 @@ export function createGameRepository(): GameRepositoryProps {
 
             return GameSchema.parse(results);
         },
-        async findByIds(apiKeys: string[]): Promise<Game[]> {
+        async findByIds(gameId: string[]): Promise<Game[]> {
             const db = await getDatabase();
-            const results = await db.query.games.findMany({
-                where: inArray(games.apiKey, apiKeys)
+            const results = await db.query.gamesAlt.findMany({
+                where: inArray(games.gameId, gameId)
             });
 
             return GameSchema.array().parse(results);
         },
     }
-}
+} */

@@ -75,7 +75,7 @@ export default function Login(props: any){
             </form>
             <div>
                 <p>
-                    Don't have an account? <a href="/register">Register here</a>
+                    Don't have an account? <a href="/signup">Register here</a>
                 </p>
             </div>
 
